@@ -15,9 +15,18 @@ def run():
 
     subprocess.run(['git', 'add', 'temp.txt'])
     subprocess.run(['git', 'commit', '-m', mensaje_commit])
-    subprocess.run(['git', 'push', 'origin', 'main'])
+    
+    # Verificamos la existencia de la rama "main"
+    try:
+        subprocess.run(['git', 'rev-parse', '--verify', 'main'])
+        branch_name = 'main'
+    except subprocess.CalledProcessError:
+        branch_name = 'master'
+    
+    subprocess.run(['git', 'push', 'origin', branch_name])
 
     print(f'Archivo {archivo} publicado en GitHub en el repositorio {repo_nombre}/{archivo_en_repo}')
 
 # Llamamos a la función run()
 run()
+
